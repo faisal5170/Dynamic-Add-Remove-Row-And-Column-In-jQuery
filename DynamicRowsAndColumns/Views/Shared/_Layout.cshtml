@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Dynamic Rows and Columns</title>
+    <style>
+        .btn-remove {
+            margin-top: 5px;
+            margin-right: 0px;
+        }
+        .no-border {
+            border: none !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            -webkit-transition: none !important;
+            padding: 0px !important;
+            background-color: transparent;
+            color: #000000;
+        }
+        #TblDynamic td, th {
+            vertical-align: top !important;
+        }
+        .table-bordered {
+            border: 5px solid #ddd !important;
+        }
+        .table-bordered > tbody > tr > td {
+            border: 5px solid #ddd !important;
+        }
+        .btnSpacing {
+            margin-top: 0px;
+            margin-right: 10px
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+
+</body>
+</html>

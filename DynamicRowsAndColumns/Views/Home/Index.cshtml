@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div id="DynamicTableCreation"></div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="~/Scripts/DynamicOperations.js"></script>
+<script src="~/Scripts/DynamicTable.js"></script>
+
+
+<div id="DynamicTableCreation"></div>
+
+
+<div class="col-xs-12" style="margin-top: 20px;">
+    <button id="SaveTable" type="button" class="btn btn-primary pull-right" style="display: block;">Submit</button>
+</div>
+
+<script>
+    $(document).on('click', '#SaveTable', function () {
+        var status = true;
+        if (status == true) {
+            if ($('#DynamicTableCreation').html() != "") {
+                var TempData = [];
+                var Th = {};
+
+                var $STrows = $('#TblDynamic').find('tr');
+                var Soil_Rows = '', Soil_Columns = '';
+                $STrows.each(function (index) {
+                    var $td = $(this).find('td');
+                    if (index == 0) {
+                        $td.each(function (i) {
+                            if (i > 0) {
+                                Soil_Columns += $(this).find('.form-control').val() + '#sep#';
+                            }
+                        });
+                    }
+                    else {
+                        $td.each(function (i) {
+                            if (i > 0) {
+                                Soil_Rows += $(this).find('.form-control').val() + '#sep#';
+                            }
+                        });
+                    }
+                    Soil_Rows += '#row#';
+                });
+
+                Th["Soil_Header"] = $('#tableHead').val();
+                Th["Soil_Footer"] = $('#tableFooter').val();
+                Th["Soil_Columns"] = Soil_Columns;
+                Th["Soil_Rows"] = Soil_Rows;
+                TempData.push(Th);
+                var datas = JSON.stringify(TempData[0]);
+                $.ajax({
+                    url: '/Home/Index',
+                    type: "POST",
+                    data: { 'JsonData': datas },
+                    success: function (result) {
+                        alert("Data Added Successfully");
+                    },
+                    error: function (error) {
+
+                    }
+                });
+            }
+            else {
+
+            }
+        }
+    });
+</script>
